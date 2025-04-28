@@ -11,12 +11,22 @@ body {
     background-color: #f4f4f4;
 }
 
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;  /* Prevent scrolling */
+}
+
 .container {
-    max-width: 800px;
-    width: 95%;  /* Allow some margin on mobile */
-    margin: 0 auto;
+    min-height: 100vh;  /* Make container at least full height */
+    width: 100%;
+    max-width: none;    /* Allow full width in fullscreen */
+    margin: 0;
+    padding: 15px;
+    box-sizing: border-box;
     background-color: white;
-    padding: 15px;  /* Smaller padding on mobile */
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
@@ -320,6 +330,10 @@ button:hover {
     .scoring-buttons {
         width: 95%;     /* Give some margin on very small screens */
         margin: 20px auto;
+    }
+
+    .container {
+        padding: 10px;
     }
 }
 

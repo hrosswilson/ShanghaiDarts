@@ -122,6 +122,24 @@ class ShanghaiGame {
 
 // DOM manipulation and event handlers will go here
 document.addEventListener('DOMContentLoaded', () => {
+    // Request full screen when the page loads
+    function requestFullScreen() {
+        const element = document.documentElement;
+        if (element.requestFullscreen) {
+            element.requestFullscreen();
+        } else if (element.webkitRequestFullscreen) { // Chrome, Safari
+            element.webkitRequestFullscreen();
+        } else if (element.msRequestFullscreen) { // IE/Edge
+            element.msRequestFullscreen();
+        }
+    }
+
+    // Try to go fullscreen on first user interaction (many browsers require this)
+    document.addEventListener('click', function onFirstClick() {
+        requestFullScreen();
+        document.removeEventListener('click', onFirstClick);
+    }, { once: true });
+
     const game = new ShanghaiGame();
     const playerSetup = document.getElementById('playerSetup');
     const gameBoard = document.getElementById('gameBoard');
