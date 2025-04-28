@@ -13,9 +13,10 @@ body {
 
 .container {
     max-width: 800px;
+    width: 95%;  /* Allow some margin on mobile */
     margin: 0 auto;
     background-color: white;
-    padding: 20px;
+    padding: 15px;  /* Smaller padding on mobile */
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
@@ -31,6 +32,7 @@ h1 {
 
 .form-group {
     display: flex;
+    flex-wrap: wrap;  /* Allow wrapping on small screens */
     gap: 10px;
     margin-bottom: 15px;
 }
@@ -53,10 +55,24 @@ button:hover {
 }
 
 .scoring-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px auto;
+    max-width: 500px;
+}
+
+.scoring-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
-    margin-top: 20px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.shanghai-override, .undo-btn {
+    grid-column: 1 / -1;
+    width: 100%;
 }
 
 .score-btn {
@@ -77,19 +93,10 @@ button:hover {
     background-color: #e3f2fd;
 }
 
-.shanghai-override {
-    grid-column: 1 / -1;  /* Make button span full width */
-    background-color: #ff9800;  /* Different color to distinguish it */
-    margin-top: 10px;
-}
-
-.shanghai-override:hover {
-    background-color: #f57c00;
-}
-
 .scoreboard-container {
     margin-bottom: 20px;
-    overflow-x: auto;
+    overflow-x: auto;  /* Enable horizontal scroll on small screens */
+    -webkit-overflow-scrolling: touch;  /* Smooth scroll on iOS */
 }
 
 #scoreboard {
@@ -153,9 +160,8 @@ button:hover {
 }
 
 .input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+    flex: 1;
+    min-width: 200px;  /* Ensure inputs don't get too narrow */
 }
 
 .input-group label {
@@ -194,7 +200,6 @@ button:hover {
 }
 
 .undo-btn {
-    grid-column: 1 / -1;  /* Keep it full width */
     background-color: #9e9e9e;  /* Neutral gray color */
     margin-top: 10px;
     font-size: 0.9em;  /* Slightly smaller text */
@@ -270,4 +275,98 @@ button:hover {
     color: #666;
     margin-top: -15px;  /* Pull it closer to the main title */
     margin-bottom: 20px;
+}
+
+/* Media queries for different screen sizes */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    .subtitle {
+        font-size: 1em;
+    }
+
+    .score-btn {
+        padding: 12px;
+        font-size: 1em;
+    }
+
+    .form-group {
+        flex-direction: column;
+    }
+
+    .input-group {
+        width: 100%;
+    }
+
+    .current-player-info {
+        font-size: 0.9em;
+    }
+
+    .rule-block {
+        padding: 10px;
+    }
+
+    .start-btn {
+        width: 100%;  /* Full width on mobile */
+        max-width: 300px;
+    }
+
+    .scoring-buttons {
+        width: 95%;     /* Give some margin on very small screens */
+        margin: 20px auto;
+    }
+}
+
+/* Larger screens */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1000px;
+    }
+
+    .scoring-buttons {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 500px;  /* Keep consistent max-width */
+        margin: 20px auto;
+    }
+}
+
+/* Ensure table remains usable on small screens */
+@media (max-width: 480px) {
+    #scoreboard th, #scoreboard td {
+        padding: 4px;
+        font-size: 0.9em;
+    }
+
+    .required-points {
+        font-size: 0.7em;
+    }
+}
+
+/* Fix for very small screens */
+@media (max-width: 320px) {
+    .container {
+        width: 100%;
+        padding: 10px 5px;
+    }
+
+    .score-btn {
+        padding: 8px;
+        font-size: 0.9em;
+    }
+}
+
+.shanghai-override {
+    background-color: #ff9800;  /* Orange color */
+    margin-top: 10px;
+}
+
+.shanghai-override:hover {
+    background-color: #f57c00;  /* Darker orange on hover */
+    opacity: 1;
 } 
