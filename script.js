@@ -31,7 +31,6 @@ class ShanghaiGame {
     }
 
     recordScore(points) {
-        // Save state before making any changes
         this.saveMove();  
 
         const currentPlayer = this.getCurrentPlayer();
@@ -54,6 +53,11 @@ class ShanghaiGame {
             
             currentPlayer.currentNumberIndex++; // Move to next number immediately
             this.currentRoundScores = [];      // Reset round scores for new number
+
+            // Check if player just completed BULL
+            if (currentNumber === 'BULL') {
+                return 'GAME_OVER';
+            }
         }
         
         // If all darts thrown, move to next player
@@ -327,6 +331,9 @@ document.addEventListener('DOMContentLoaded', () => {
             switch(result) {
                 case 'SHANGHAI':
                     handleShanghai(game.getCurrentPlayer().name);
+                    break;
+                case 'GAME_OVER':
+                    handleGameOver();
                     break;
                 case 'NEXT_TURN':
                     if (game.isGameOver()) {
