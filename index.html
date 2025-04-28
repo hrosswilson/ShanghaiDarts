@@ -8,6 +8,9 @@
 </head>
 <body>
     <div class="container">
+        <button id="fullscreenButton" class="fullscreen-btn">
+            <span class="fullscreen-icon">⤢</span>
+        </button>
         <div class="title-block">
             <h1>Shanghai Darts</h1>
             <p class="subtitle"><i>Verbier Edition</i></p>
@@ -49,9 +52,34 @@
     </div>
 
     <script>
-        document.getElementById('startButton').addEventListener('click', () => {
+        document.getElementById('startButton').addEventListener('click', async () => {
+            // Set flag that we want fullscreen
+            localStorage.setItem('wantFullscreen', 'true');
             window.location.href = 'game.html';
         });
+
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log(`Error attempting to enable fullscreen: ${err.message}`);
+                });
+                localStorage.setItem('wantFullscreen', 'true');
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+                localStorage.setItem('wantFullscreen', 'false');
+            }
+        }
+
+        // Check if we should be in fullscreen on load
+        if (localStorage.getItem('wantFullscreen') === 'true') {
+            document.documentElement.requestFullscreen().catch(err => {
+                console.log(`Error attempting to enable fullscreen: ${err.message}`);
+            });
+        }
+
+        document.getElementById('fullscreenButton').addEventListener('click', toggleFullScreen);
     </script>
 </body>
 </html> 

@@ -122,23 +122,31 @@ class ShanghaiGame {
 
 // DOM manipulation and event handlers will go here
 document.addEventListener('DOMContentLoaded', () => {
-    // Request full screen when the page loads
-    function requestFullScreen() {
-        const element = document.documentElement;
-        if (element.requestFullscreen) {
-            element.requestFullscreen();
-        } else if (element.webkitRequestFullscreen) { // Chrome, Safari
-            element.webkitRequestFullscreen();
-        } else if (element.msRequestFullscreen) { // IE/Edge
-            element.msRequestFullscreen();
+    // Check if we should be in fullscreen
+    if (localStorage.getItem('wantFullscreen') === 'true') {
+        document.documentElement.requestFullscreen().catch(err => {
+            console.log(`Error attempting to enable fullscreen: ${err.message}`);
+        });
+    }
+
+    function toggleFullScreen() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(err => {
+                console.log(`Error attempting to enable fullscreen: ${err.message}`);
+            });
+            localStorage.setItem('wantFullscreen', 'true');
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+            localStorage.setItem('wantFullscreen', 'false');
         }
     }
 
-    // Try to go fullscreen on first user interaction (many browsers require this)
-    document.addEventListener('click', function onFirstClick() {
-        requestFullScreen();
-        document.removeEventListener('click', onFirstClick);
-    }, { once: true });
+    const fullscreenButton = document.getElementById('fullscreenButton');
+    if (fullscreenButton) {
+        fullscreenButton.addEventListener('click', toggleFullScreen);
+    }
 
     const game = new ShanghaiGame();
     const playerSetup = document.getElementById('playerSetup');
@@ -335,9 +343,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.getElementById('shanghaiOverride').addEventListener('click', () => {
-        if (confirm('Are you sure you want to declare a Shanghai win?')) {
-            handleShanghai(game.getCurrentPlayer().name);
+        const confirmed = confirm(`Are you sure ${game.getCurrentPlayer().name} hit a Shanghai?`);
+        if (confirmed) {
+            // Save the state before applying Shanghai
+            game.saveMove();
+            
+            const currentPlayer = game.getCurrentPlayer();
+            const currentNumber = game.getCurrentNumber();
+            
+            // Record the Shanghai scores
+            currentPlayer.scores[currentNumber] = currentPlayer.requiredPoints;
+            currentPlayer.currentNumberIndex++;
+            game.dartsThrown = 3;
+            game.currentRoundScores = [1, 2, 3];  // Represent Single, Double, Triple
+            
+            // Move to next player
+            game.nextTurn();
+            
+            if (game.isGameOver()) {
+                handleGameOver();
+            } else {
+                updateGameBoard();
+            }
         }
+        // If not confirmed, do nothing but ensure the game state remains valid
+        updateGameBoard();  // Refresh the display
     });
 
     // Add the event listener for the undo button

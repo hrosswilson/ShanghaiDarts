@@ -14,24 +14,27 @@ body {
 html, body {
     margin: 0;
     padding: 0;
-    height: 100%;
+    min-height: 100%;
     width: 100%;
     overflow-x: hidden;
     display: flex;
-    justify-content: center;  /* Center horizontally */
+    justify-content: center;
     background-color: #f4f4f4;
 }
 
 .container {
     width: 95%;
-    max-width: 800px;    /* Back to limited width */
+    max-width: 800px;
     min-height: 100vh;
-    margin: 0 auto;      /* Center the container */
+    margin: 0 auto;
     padding: 15px;
     box-sizing: border-box;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;  /* Allow vertical scrolling if needed */
 }
 
 h1 {
@@ -336,7 +339,25 @@ button:hover {
     }
 
     .container {
+        width: 100%;
+        min-height: 100vh;
+        margin: 0;
         padding: 10px;
+        border-radius: 0;  /* Remove rounded corners on mobile */
+    }
+
+    .rules-section {
+        margin: 10px 0;
+        padding: 10px;
+    }
+
+    .scoring-buttons {
+        margin-bottom: 20px;  /* Ensure space for the undo button */
+    }
+
+    /* Ensure the undo button stays within container */
+    .undo-btn {
+        margin-bottom: 10px;
     }
 }
 
@@ -386,4 +407,34 @@ button:hover {
 .shanghai-override:hover {
     background-color: #f57c00;  /* Darker orange on hover */
     opacity: 1;
+}
+
+.fullscreen-btn {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ddd;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.fullscreen-btn:hover {
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.fullscreen-icon {
+    font-size: 20px;
+    color: #666;
+}
+
+/* Change icon when in fullscreen */
+:fullscreen .fullscreen-icon {
+    transform: rotate(180deg);
 } 
