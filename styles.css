@@ -16,14 +16,17 @@ html, body {
     padding: 0;
     height: 100%;
     width: 100%;
-    overflow: hidden;  /* Prevent scrolling */
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;  /* Center horizontally */
+    background-color: #f4f4f4;
 }
 
 .container {
-    min-height: 100vh;  /* Make container at least full height */
-    width: 100%;
-    max-width: none;    /* Allow full width in fullscreen */
-    margin: 0;
+    width: 95%;
+    max-width: 800px;    /* Back to limited width */
+    min-height: 100vh;
+    margin: 0 auto;      /* Center the container */
     padding: 15px;
     box-sizing: border-box;
     background-color: white;
