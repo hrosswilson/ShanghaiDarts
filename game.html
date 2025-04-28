@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shanghai Darts Scorer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Shanghai Darts Scorer</h1>
+        
+        <!-- Player Setup Form -->
+        <div id="playerSetup" class="section">
+            <h2>Player Setup</h2>
+            <form id="addPlayerForm">
+                <div class="form-group">
+                    <div class="input-group">
+                        <label for="playerName">Player Name</label>
+                        <input type="text" id="playerName" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="requiredPoints">Points Per Number</label>
+                        <select id="requiredPoints">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                    <button type="submit">Add Player</button>
+                </div>
+            </form>
+            <button id="startGame" style="display: none;">Start Game</button>
+        </div>
+
+        <!-- Game Board (Initially Hidden) -->
+        <div id="gameBoard" class="section" style="display: none;">
+            <div class="scoreboard-container">
+                <table id="scoreboard">
+                    <thead>
+                        <tr id="playerNames">
+                            <th rowspan="2">Target</th>
+                            <!-- Player names will be added here -->
+                        </tr>
+                        <tr id="playerPoints">
+                            <!-- Required points will be added here -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Score rows will be added here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="current-player-info">
+                <h2>Current Player: <span id="currentPlayerName"></span></h2>
+                <p>Target: <span id="currentNumber">20</span></p>
+                <p>Required Points: <span id="currentRequiredPoints"></span></p>
+                <p>Darts Remaining: <span id="dartsRemaining">3</span></p>
+            </div>
+
+            <div class="scoring-buttons">
+                <button class="score-btn" data-value="1">Single</button>
+                <button class="score-btn" data-value="2">Double</button>
+                <button class="score-btn" data-value="3">Triple</button>
+                <button class="score-btn" data-value="0">Miss</button>
+                <button id="shanghaiOverride" class="score-btn shanghai-override">Shanghai</button>
+                <button id="undoButton" class="score-btn undo-btn">Undo</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

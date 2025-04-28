@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shanghai Darts - Rules</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="title-block">
+            <h1>Shanghai Darts</h1>
+            <p class="subtitle"><i>Verbier Edition</i></p>
+        </div>
+        
+        <div class="rules-section">
+            <h2>How to Play</h2>
+            <div class="rule-block">
+                <h3>Basic Rules</h3>
+                <ul>
+                    <li>Players take turns throwing three darts each round</li>
+                    <li>Starting at 20, players must score their required points before moving to the next number</li>
+                    <li>The sequence is: 20, 19, 18, 17, 16, 15, and finally Bull</li>
+                    <li>Players can only score on their current target number</li>
+                </ul>
+            </div>
+
+            <div class="rule-block">
+                <h3>Scoring</h3>
+                <ul>
+                    <li>Single = 1 point</li>
+                    <li>Double = 2 points</li>
+                    <li>Triple = 3 points</li>
+                    <li>Players must achieve their required points to move to the next number</li>
+                </ul>
+            </div>
+
+            <div class="rule-block">
+                <h3>Special Features</h3>
+                <ul>
+                    <li>Handicap System: Players can have different required points per number</li>
+                    <li>Shanghai Win: Hitting a Single, Double, and Triple of the same number in one turn</li>
+                    <li>Undo Feature: Mistakes can be corrected using the undo button</li>
+                </ul>
+            </div>
+        </div>
+
+        <button id="startButton" class="start-btn">Start Game</button>
+    </div>
+
+    <script>
+        document.getElementById('startButton').addEventListener('click', () => {
+            window.location.href = 'game.html';
+        });
+    </script>
+</body>
+</html> 
