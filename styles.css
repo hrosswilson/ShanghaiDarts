@@ -483,9 +483,17 @@ button:hover {
 
 .order-buttons {
     display: flex;
-    gap: 10px;
+    gap: 20px;
     justify-content: center;
+    align-items: center;
     margin-top: 20px;
+}
+
+.order-buttons button {
+    flex: 0 1 200px;  /* Fixed width for both buttons */
+    height: 50px;     /* Fixed height for both buttons */
+    margin: 0;
+    font-size: 1.2em;
 }
 
 .reset-btn {
@@ -511,12 +519,12 @@ button:hover {
 @media (max-width: 600px) {
     .order-buttons {
         flex-direction: column;
+        align-items: center;
     }
     
     .order-buttons button {
-        width: 100%;
-        max-width: 300px;
-        margin: 5px auto;
+        width: 200px;  /* Fixed width on mobile */
+        margin: 5px 0;
     }
 }
 
@@ -568,7 +576,7 @@ button:hover {
         #444 80%,
         #666 100%
     );
-    left: -50px;
+    right: 70%;  /* Change back to right positioning */
     top: 50%;
     transform: translateY(-50%) rotate(0deg);
     border-radius: 1px;
@@ -646,27 +654,27 @@ button:hover {
 
 @keyframes fly {
     0% { 
-        left: -50px;
+        right: 70%;
         transform: translateY(-50%) rotate(0deg);
         opacity: 1;
     }
     35% { 
-        left: calc(50% - 60px);  /* Adjusted to hit center */
+        right: calc(50% + 6px);  /* Adjusted to hit exact center */
         transform: translateY(-50%) rotate(0deg);
         opacity: 1;
     }
     40% {
-        left: calc(50% - 60px);  /* Keep consistent */
+        right: calc(50% + 6px);
         transform: translateY(-50%) rotate(0deg) scale(0.95);
         opacity: 1;
     }
     45% { 
-        left: calc(50% - 60px);  /* Keep consistent */
+        right: calc(50% + 6px);
         transform: translateY(-50%) rotate(0deg) scale(1);
         opacity: 1;
     }
     50% {
-        left: calc(50% - 60px);  /* Keep consistent */
+        right: calc(50% + 6px);
         transform: translateY(-50%) rotate(0deg);
         opacity: 1;
     }
@@ -674,7 +682,7 @@ button:hover {
         opacity: 0;
     }
     52% {
-        left: -50px;
+        right: 70%;
         transform: translateY(-50%) rotate(0deg);
         opacity: 0;
     }
@@ -682,7 +690,7 @@ button:hover {
         opacity: 1;
     }
     100% {
-        left: -50px;
+        right: 70%;
         transform: translateY(-50%) rotate(0deg);
         opacity: 1;
     }
