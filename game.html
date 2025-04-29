@@ -36,6 +36,29 @@
             <button id="startGame" style="display: none;">Start Game</button>
         </div>
 
+        <!-- Add this after playerSetup and before gameBoard -->
+        <div id="playerOrder" class="section" style="display: none;">
+            <h2>Set Player Order</h2>
+            <p class="instruction-text">Throw for bull</p>
+            <div class="dart-animation">
+                <div class="dart"></div>
+                <div class="target">
+                    <div class="bullseye"></div>
+                </div>
+            </div>
+            <div id="unorderedPlayers" class="player-order-list">
+                <!-- Unordered players will be added here -->
+            </div>
+            <div id="orderedPlayers" class="player-order-list">
+                <h3>Throwing Order:</h3>
+                <!-- Ordered players will be added here -->
+            </div>
+            <div class="order-buttons">
+                <button id="resetOrder" class="reset-btn">Reset Order</button>
+                <button id="confirmOrder" class="start-btn" style="display: none;">Start Game</button>
+            </div>
+        </div>
+
         <!-- Game Board (Initially Hidden) -->
         <div id="gameBoard" class="section" style="display: none;">
             <div class="scoreboard-container">

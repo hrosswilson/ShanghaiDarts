@@ -437,4 +437,253 @@ button:hover {
 /* Change icon when in fullscreen */
 :fullscreen .fullscreen-icon {
     transform: rotate(180deg);
+}
+
+.player-order-list {
+    margin: 20px 0;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+}
+
+.player-item {
+    padding: 15px;
+    margin: 10px 0;
+    background-color: white;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    font-size: 1.1em;
+}
+
+.player-item:hover {
+    background-color: #e3f2fd;
+    transform: translateY(-2px);
+}
+
+.instruction-text {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    margin: 10px 0;
+}
+
+.ordered-player {
+    background-color: #e8f5e9;
+    border-left: 4px solid #4CAF50;
+}
+
+#orderedPlayers h3 {
+    text-align: center;
+    color: #2196F3;
+    margin-bottom: 15px;
+}
+
+.order-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.reset-btn {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    background-color: #f44336;  /* Red color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.reset-btn:hover {
+    background-color: #d32f2f;
+}
+
+/* Update start-btn margin since it's now in a flex container */
+.order-buttons .start-btn {
+    margin: 0;
+}
+
+@media (max-width: 600px) {
+    .order-buttons {
+        flex-direction: column;
+    }
+    
+    .order-buttons button {
+        width: 100%;
+        max-width: 300px;
+        margin: 5px auto;
+    }
+}
+
+/* Dart animation styles */
+.dart-animation {
+    position: relative;
+    height: 120px;
+    margin: 20px auto;
+    width: 300px;  /* Make container wider */
+}
+
+.target {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: repeating-radial-gradient(
+        circle at center,
+        #1a1a1a 0%,
+        #1a1a1a 8%,
+        #e6e6e6 8%,
+        #e6e6e6 16%,
+        #cc0000 16%,    /* Red ring */
+        #cc0000 24%,
+        #1a1a1a 24%,
+        #1a1a1a 32%,
+        #008000 32%,    /* Green ring */
+        #008000 40%,
+        #1a1a1a 40%,
+        #1a1a1a 50%
+    );
+    border: 4px solid #333;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    z-index: 1;
+}
+
+.dart {
+    position: absolute;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(to right, 
+        #444 0%,
+        #888 20%,
+        #444 40%,
+        #888 60%,
+        #444 80%,
+        #666 100%
+    );
+    left: -50px;
+    top: 50%;
+    transform: translateY(-50%) rotate(0deg);
+    border-radius: 1px;
+    transform-origin: right center;
+    animation: fly 3s ease-in-out infinite;
+    z-index: 2;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.dart::before {  /* Dart point and stem */
+    content: '';
+    position: absolute;
+    right: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 4px;
+    background: linear-gradient(to right, #999, #ccc);
+    clip-path: polygon(0 50%, 100% 0, 100% 100%);
+}
+
+.dart::after {  /* Dart flights */
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 24px;
+    background: 
+        linear-gradient(45deg, transparent 0%, transparent 40%, #ff2222 40%, #ff2222 60%, transparent 60%, transparent 100%),
+        linear-gradient(-45deg, transparent 0%, transparent 40%, #ff2222 40%, #ff2222 60%, transparent 60%, transparent 100%),
+        linear-gradient(to right, transparent 49%, #666 49%, #666 51%, transparent 51%);
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,0.3));
+}
+
+.bullseye {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle at center,
+        #cc0000 0%,
+        #cc0000 40%,
+        #990000 40%,
+        #990000 100%
+    );
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.5);
+    border: 1px solid #800000;
+}
+
+/* Add a subtle shadow under the dart */
+.dart-animation::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 4px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 50%;
+    left: calc(50% - 10px);
+    top: calc(50% + 45px);
+    filter: blur(2px);
+    animation: shadowMove 3s ease-in-out infinite;
+}
+
+@keyframes shadowMove {
+    0%, 100% { opacity: 0; transform: scaleX(1); }
+    35%, 50% { opacity: 1; transform: scaleX(0.7); }
+    51% { opacity: 0; }
+}
+
+@keyframes fly {
+    0% { 
+        left: -50px;
+        transform: translateY(-50%) rotate(0deg);
+        opacity: 1;
+    }
+    35% { 
+        left: calc(50% - 60px);  /* Adjusted to hit center */
+        transform: translateY(-50%) rotate(0deg);
+        opacity: 1;
+    }
+    40% {
+        left: calc(50% - 60px);  /* Keep consistent */
+        transform: translateY(-50%) rotate(0deg) scale(0.95);
+        opacity: 1;
+    }
+    45% { 
+        left: calc(50% - 60px);  /* Keep consistent */
+        transform: translateY(-50%) rotate(0deg) scale(1);
+        opacity: 1;
+    }
+    50% {
+        left: calc(50% - 60px);  /* Keep consistent */
+        transform: translateY(-50%) rotate(0deg);
+        opacity: 1;
+    }
+    51% {
+        opacity: 0;
+    }
+    52% {
+        left: -50px;
+        transform: translateY(-50%) rotate(0deg);
+        opacity: 0;
+    }
+    53% {
+        opacity: 1;
+    }
+    100% {
+        left: -50px;
+        transform: translateY(-50%) rotate(0deg);
+        opacity: 1;
+    }
 } 

@@ -310,15 +310,69 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    function showPlayerOrderScreen() {
+        playerSetup.style.display = 'none';
+        document.getElementById('playerOrder').style.display = 'block';
+        
+        const unorderedPlayersDiv = document.getElementById('unorderedPlayers');
+        const orderedPlayersDiv = document.getElementById('orderedPlayers');
+        
+        // Clear previous content
+        unorderedPlayersDiv.innerHTML = '';
+        orderedPlayersDiv.innerHTML = '<h3>Throwing Order:</h3>';
+        
+        // Create player items
+        game.players.forEach((player, index) => {
+            const playerItem = document.createElement('div');
+            playerItem.className = 'player-item';
+            playerItem.textContent = player.name;
+            playerItem.dataset.playerIndex = index;
+            unorderedPlayersDiv.appendChild(playerItem);
+        });
+
+        // Add click handlers
+        unorderedPlayersDiv.addEventListener('click', handlePlayerOrder);
+    }
+
+    function handlePlayerOrder(e) {
+        if (!e.target.classList.contains('player-item')) return;
+        
+        const orderedPlayersDiv = document.getElementById('orderedPlayers');
+        e.target.classList.add('ordered-player');
+        orderedPlayersDiv.appendChild(e.target);
+        
+        // Show start button when all players are ordered
+        const unorderedPlayers = document.getElementById('unorderedPlayers').children.length;
+        if (unorderedPlayers === 0) {
+            document.getElementById('confirmOrder').style.display = 'block';
+        }
+    }
+
+    function startGameWithOrder() {
+        const orderedPlayers = Array.from(document.getElementById('orderedPlayers').children)
+            .filter(el => el.classList.contains('player-item'))
+            .map(el => parseInt(el.dataset.playerIndex));
+        
+        // Reorder players array
+        game.players = orderedPlayers.map(index => game.players[index]);
+        
+        // Start the game
+        document.getElementById('playerOrder').style.display = 'none';
+        gameBoard.style.display = 'block';
+        updateGameBoard();
+    }
+
+    // Modify the start game button click handler
     startGameBtn.addEventListener('click', () => {
         if (game.players.length < 1) {
             alert('Please add at least one player to start the game');
             return;
         }
-        playerSetup.style.display = 'none';
-        gameBoard.style.display = 'block';
-        updateGameBoard();
+        showPlayerOrderScreen();
     });
+
+    // Add confirm order button handler
+    document.getElementById('confirmOrder').addEventListener('click', startGameWithOrder);
 
     // Modify the scoring button event listeners
     document.querySelectorAll('.score-btn').forEach(button => {
@@ -388,4 +442,26 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('No moves to undo!');
         }
     });
+
+    // Add this function after showPlayerOrderScreen
+    function resetPlayerOrder() {
+        const unorderedPlayersDiv = document.getElementById('unorderedPlayers');
+        const orderedPlayersDiv = document.getElementById('orderedPlayers');
+        
+        // Move all players back to unordered list
+        const orderedPlayers = Array.from(orderedPlayersDiv.getElementsByClassName('player-item'));
+        orderedPlayers.forEach(player => {
+            player.classList.remove('ordered-player');
+            unorderedPlayersDiv.appendChild(player);
+        });
+        
+        // Hide the confirm button
+        document.getElementById('confirmOrder').style.display = 'none';
+        
+        // Reset the orderedPlayers div to just the heading
+        orderedPlayersDiv.innerHTML = '<h3>Throwing Order:</h3>';
+    }
+
+    // Add the event listener for the reset button
+    document.getElementById('resetOrder').addEventListener('click', resetPlayerOrder);
 }); 
